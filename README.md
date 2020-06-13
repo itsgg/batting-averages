@@ -1,24 +1,19 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Load teams
 
-Things you may want to cover:
+```
+rails loader:teams
+```
 
-* Ruby version
+## Load players and stints
 
-* System dependencies
+```
+rails loader:stints
+```
 
-* Configuration
+## API endpoint
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+http://localhost:3000/players?year=<year>&team=<team name>
+```
