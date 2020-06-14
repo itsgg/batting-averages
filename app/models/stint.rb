@@ -9,18 +9,23 @@ class Stint < ApplicationRecord
   def self.filter(params)
     return [] if params[:team].blank? && params[:year].blank?
 
-    stints = Stint.joins(:team).joins(:player).select(
-      :id,
-      :player_id,
-      :year_id,
-      :team_id,
-      :at_bats,
-      :hits,
-      'teams.name as team_name',
-      'players.player_id as player_name'
-    )
-    stints = stints.send(:where, {year_id: params[:year]}) if params[:year].present?
-    stints.send(:where, {'teams.name': params[:team]}) if params[:team].present?
+    stints =
+      Stint.joins(:team).joins(:player).select(
+        :id,
+        :player_id,
+        :year_id,
+        :team_id,
+        :at_bats,
+        :hits,
+        'teams.name as team_name',
+        'players.player_id as player_name'
+      )
+    if params[:year].present?
+      stints = stints.send(:where, { year_id: params[:year] })
+    end
+    if params[:team].present?
+      stints = stints.send(:where, { :"teams.name" => params[:team] })
+    end
     stints
   end
 end
